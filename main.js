@@ -4,66 +4,100 @@
 //Array of word options (all lowercase)
 var wordsList = ["lettuce", "spinach", "cucumber"]
 
-//Solution will be held here
+// Solution will be held here
+
 var chosenWord = "";
 
-//This will break the solution into individual letters to be stored in an array
-var letterInChosenWord = [];
+// This will break the solution into individual letters to be stored in an array.
 
-//This will be the number of blanks we show based in the solution
+var lettersInChosenWord = [];
+
+// This will be the number of blanks we show based on the solution
+
 var numBlanks = 0;
 
-// Holds a mix of blanks and solves letter(ex:ap_le)
-var blankAndSuccesses = [];
+// Holds a mix of blank and solved letters (ex: a_p_le)
 
-//Holds all of the wrong guesses
-var wrongGuesses= [];
+var blanksAndSucesses = [];
 
+// Holds all of the wrong guesses
 
-//Game Counters
-var winCounter= 0;
-var lossCounter= 0;
-var numGuesses= 9;
+var wrongGuesses = [];
 
+// Game counters
 
-//FUNCTIONS
-//-------------------------------------------------------------------------
-//Note: the startGame() function is not being run here, it's just being made for future use
-function startGame(){
-    
-    // resets the guesses back to specified amount
-    numGuesses = 9;
+var winCounter = 0;
 
-    // solution is chosen randomly from word list 
-    chosenWord = wordsList[Math.floor(Math,random()* wordsList.length)]
+var lossCounter = 0;
 
-    // The word is broken into individual letters
-    letterInChosenWord = chosenWord.split(**);
+var numGuesses = 9;
 
-    // We count the number of letters in the word 
-    numBlanks = letterInChosenWord.length;
+// FUNCTIONS
 
-    // we print the solution in console (for testing)
-    console.log(chosenWord);
+// ------------------------------------------------------
 
-    // CRITICAL LINE : here we rest the guesses success array at each round
-    blankAndSuccesses = [];
-    //CRITICAL LINE : here we rest the  wrong guesses array from the previous round
-    wrongGuesses = [];
-    //fill up the blanks and successes list with appropiate number of blanks, 
-    //      which is based on the number of letters in solution
-     for (var i = 0; i < numBlanks; i++){
-         blankAndSuccesses.push("_");
-     }
-     
-     // print the initial blanks in the console
-     console.log(blankAndSuccesses);
+/* It's how we'll start and restart the game. It's not being run here. It's
 
-     // reprint the guessesLeft to nine
-     document.getElementById("guesses-left").innerHTML = numGuesses;
-     
-     // it prints the blanks  at the beginning of each round in the html
-     document.getElementById("word-blank").innerHTML = blankAndSuccesses.join(" ");
+just being made for future use. */
+
+function startGame()
+{
+
+// Starts over the guesses at specified number
+
+numGuesses = 9;
+
+// Solution is chosen randomly from wordList
+
+chosenWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+
+// The word is broken into individual letters
+
+lettersInChosenWord = chosenWord.split("");
+
+// We count the number of letters in the word
+
+numBlanks = lettersInChosenWord.length;
+
+// We print the solution in the console (for testing)
+
+console.log(chosenWord);
+
+// CRITICAL LINE - Here we reset the guess and success array at each round
+
+blanksAndSucesses = [];
+
+// CRITICAL LINE - Here we reset the wrong guesses from the previous round
+
+wrongGuesses = [];
+
+// Fill up the blanksAndSucusses list with approopriate number of blanks,
+
+// which is based on the number of letters in solution
+
+for (var i = 0; i < numBlanks; i++){
+
+blanksAndSucesses.push("_");
+
+}
+
+// Print the initial blanks in console.
+
+console.log(blanksAndSucesses);
+
+// Reprints the guessesLeft to 9
+
+document.getElementById("guesses-left").innerHTML = numGuesses;
+
+// Prints the blanks at the beginning of each round in the HTML
+
+document.getElementById("word-blanks").innerHTML = blanksAndSucesses.join(" ");
+
+// Clears the wrong guesses form the previous round
+
+document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+
+}
      
 
 }
@@ -99,6 +133,7 @@ for (var i = 0; i < numBlanks; i++ ) {
       console.log(blankAndSuccesses)
   }
 }
+
 //If the letter doesn't exist exist at all.....
 else{
 
@@ -108,7 +143,7 @@ else{
   }
 }
 //Here we will have all code that need to be run after each guess is made
-function round Complete(){
+function roundComplete(){
 
     //First, log an initial status update to the console telling
     console.log(`WinCount: ${winCounter} | LossCount: ${lossCounter} | NumGuesses: ${numGuesses}`);
@@ -151,4 +186,22 @@ function round Complete(){
 
      }
 
+}
+
+//MAIN PROCESS this is the code that contolls wghat is actually run
+//----------------------------------------------------------------------------------------
+//Starts the GAME
+startGame();
+
+//Then initiate the function for capturing key clicks
+document.onkeyup = function(event){
+
+//Converts all key clicks to lowercase letters
+var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase
+
+//Run the code to check for corrections
+checkLetter(letterGuessed);
+
+//Runs the code after each round is done
+roundComplete();
 }

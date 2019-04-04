@@ -1,0 +1,15 @@
+body{
+    margin:auto;
+    text-align:center;
+    width:50%;
+    background-color:skyblue;
+}
+
+img {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.center h1{
+    text-align:center;
+}
